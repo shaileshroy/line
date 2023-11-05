@@ -1,0 +1,37 @@
+Write a program to enter a matrix and check if it is invertible. If the inverse exists, find the inverse.
+import numpy as np
+
+# Function to check if a matrix is invertible
+def is_invertible(matrix):
+    return np.linalg.matrix_rank(matrix) == min(matrix.shape)
+
+# Function to find the inverse of a matrix (if it exists)
+def find_inverse(matrix):
+    if is_invertible(matrix):
+        inverse = np.linalg.inv(matrix)
+        return inverse
+    else:
+        return None
+
+# Input the matrix dimensions (m x n)
+m = int(input("Enter the number of rows (m): "))
+n = int(input("Enter the number of columns (n): "))
+
+# Input the matrix elements
+print("Enter the matrix elements row-wise:")
+matrix = np.zeros((m, n))
+for i in range(m):
+    row = input().split()
+    for j in range(n):
+        matrix[i, j] = float(row[j])
+
+# Check if the matrix is invertible
+if is_invertible(matrix):
+    print("The matrix is invertible.")
+    inverse_matrix = find_inverse(matrix)
+    if inverse_matrix is not None:
+        print("Inverse of the matrix:")
+        print(inverse_matrix)
+else:
+    print("The matrix is not invertible.")
+
