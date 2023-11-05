@@ -1,0 +1,41 @@
+Write a program to do the following- 
+i)	Enter a vector b and find the projection of b orthogonal to a given vector u. 
+ii)	Find the projection of b orthogonal to a set of given vectors. 
+ import numpy as np
+
+# Function to find the projection of a vector b orthogonal to a vector u
+def orthogonal_projection(b, u):
+    projection = np.dot(b, u) / np.dot(u, u) * u
+    orthogonal_component = b - projection
+    return orthogonal_component
+
+# Function to find the projection of a vector b orthogonal to a set of vectors V
+def orthogonal_projections(b, vectors):
+    orthogonal_components = np.zeros_like(b)
+    for vector in vectors:
+        projection = np.dot(b, vector) / np.dot(vector, vector) * vector
+        orthogonal_components += projection
+    orthogonal_component = b - orthogonal_components
+    return orthogonal_component
+
+# Input the vector b as a space-separated list
+b = np.array([float(x) for x in input("Enter the vector b (e.g., '1 2 3'): ").split()])
+
+# Input the vector u for orthogonal projection
+u = np.array([float(x) for x in input("Enter the vector u for orthogonal projection (e.g., '4 5 6'): ").split()])
+
+# i) Find the projection of b orthogonal to vector u
+projection_u = orthogonal_projection(b, u)
+print("Projection of b orthogonal to u:", projection_u)
+
+# Input a list of vectors V for orthogonal projection
+num_vectors = int(input("Enter the number of vectors in the set V: "))
+vectors = []
+for i in range(num_vectors):
+    vector = np.array([float(x) for x in input(f"Enter vector V{i+1} (e.g., '1 2 3'): ").split()])
+    vectors.append(vector)
+
+# ii) Find the projection of b orthogonal to the set of vectors V
+projection_v = orthogonal_projections(b, vectors)
+print("Projection of b orthogonal to the set of vectors V:", projection_v)
+
