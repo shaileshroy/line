@@ -1,0 +1,54 @@
+Write a program which demonstrate the following- 
+i)Addition of two complex numbers. 
+ii) Displaying the conjugate of a complex number. iii) Plotting a set of complex numbers. 
+iv)  Creating a new plot by rotating the given number by a degree 90, 180, 270 degrees and also by scaling b a number a=1/2, a=1/3, a=2 etc. 
+
+import matplotlib.pyplot as plt
+import numpy as np
+# i) Addition of two complex numbers
+complex_num1 = 2 + 3j
+complex_num2 = 1 - 2j
+sum_complex = complex_num1 + complex_num2
+print(f"Addition of {complex_num1} and {complex_num2}: {sum_complex}")
+
+# ii) Displaying the conjugate of a complex number
+conjugate = np.conjugate(complex_num1)
+print(f"Conjugate of {complex_num1}: {conjugate}")
+
+# iii) Plotting a set of complex numbers
+complex_numbers = [2 + 3j, 1 - 2j, 3 + 1j, 2 - 2j]
+real_part = [z.real for z in complex_numbers]
+imaginary_part = [z.imag for z in complex_numbers]
+
+plt.figure(figsize=(6, 6))
+plt.scatter(real_part, imaginary_part, color='red', label='Complex Numbers')
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.xlabel('Real Part')
+plt.ylabel('Imaginary Part')
+plt.grid()
+plt.legend()
+plt.title('Plot of Complex Numbers')
+plt.show()
+
+# iv) Creating new plots by rotating and scaling complex numbers
+original_point = complex_num1
+rotation_angles = [90, 180, 270]
+scaling_factors = [1/2, 1/3, 2]
+
+for angle in rotation_angles:
+    for scale_factor in scaling_factors:
+        rotated_point = original_point * np.exp(1j * np.radians(angle))
+        scaled_point = rotated_point * scale_factor
+        real_part = scaled_point.real
+        imaginary_part = scaled_point.imag
+        plt.figure(figsize=(6, 6))
+        plt.scatter(real_part, imaginary_part, color='blue', label=f'Rotated {angle}°, Scaled by {scale_factor}')
+        plt.axhline(0, color='black', linewidth=0.5)
+        plt.axvline(0, color='black', linewidth=0.5)
+        plt.xlabel('Real Part')
+        plt.ylabel('Imaginary Part')
+        plt.grid()
+        plt.legend()
+        plt.title(f'Rotated and Scaled Complex Number')
+        plt.show()
