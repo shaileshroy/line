@@ -1,0 +1,48 @@
+Write a program to convert a matrix into its row echelon form.
+import numpy as np
+
+# Function to convert a matrix to row echelon form
+def row_echelon_form(matrix):
+    rows, cols = matrix.shape
+    current_row = 0
+
+    for current_col in range(cols):
+        # Find the first row with a non-zero entry in the current column
+        non_zero_row = None
+        for r in range(current_row, rows):
+            if matrix[r][current_col] != 0:
+                non_zero_row = r
+                break
+
+        # If a non-zero row is found, swap it with the current row
+        if non_zero_row is not None:
+            matrix[[current_row, non_zero_row]] = matrix[[non_zero_row, current_row]]
+
+            # Make the leading coefficient (current_col) equal to 1
+            matrix[current_row] = matrix[current_row] / matrix[current_row][current_col]
+
+            # Eliminate other rows' entries in the current column
+            for r in range(rows):
+                if r != current_row and matrix[r][current_col] != 0:
+                    matrix[r] -= matrix[current_row] * matrix[r][current_col]
+
+            current_row += 1
+
+    return matrix
+
+# Input the matrix dimensions (m x n)
+m = int(input("Enter the number of rows (m): "))
+n = int(input("Enter the number of columns (n): "))
+
+# Input the matrix elements
+print("Enter the matrix elements row-wise:")
+matrix = np.zeros((m, n))
+for i in range(m):
+    row = input().split()
+    for j in range(n):
+        matrix[i, j] = float(row[j])
+
+# Convert the matrix to row echelon form
+row_echelon = row_echelon_form(matrix)
+print("Row Echelon Form:")
+print(row_echelon)
