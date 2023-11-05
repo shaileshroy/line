@@ -1,0 +1,20 @@
+def setitem(v,d,val):v.f[d]=val
+def getitem(v,d):
+    if d in v.f:
+        return v.f[d]
+    else: 
+        return 0
+def scalar_mul(v,a):
+    return Vector(v.D,{d:a*getitem(v,d)for d in v.D})
+def add(u,v): 
+    return Vector(u.D,{d:getitem(u,d)+getitem(v,d)for d in u.D})
+def neg(v):
+    return scalar_mul(v,-1)
+def zero_vec(D):
+    return Vec(D,{}) 
+def list_dot(u,v):
+    return sum([u[i]*v[i]for i in range(len(u))])
+class Vector:
+    def __init__(self,labels,function): 
+        self.D=labels 
+        self.f=function 
