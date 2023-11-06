@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <conio.h>
+
+int mutex=1,full=0,empty=3,x=0;
+
+int main()
+{
+    int n;
+    void producer1();
+    void consumer1();
+    int wait(int);
+    int signal(int);
+    printf("\n1.Producer\n2.Consumer\n3.exit");
+    while(i)
+    {
+        printf("\nEnter your choice:");
+        scanf('%d',&n);
+        switch(n)
+        {
+            case1: if((mutex==1)&&(empty!=0))
+                   producer1();
+                   else
+                   printf("buffer is full!");
+                   break;
+            case2: if((mutex==1)&&(full!!=0))
+                   consumer1();
+                   else
+                   printf("buffer is empty!!");
+                   break;
+            case3:
+                 exit(0);
+                 break;
+        }
+        
+    }
+    
+    return 0;
+}
+int wait(int s)
+{
+    return(--s);
+}
+int signal(int s)
+{
+    return(++s);
+}
+void producer1()
+{
+    mutex=wait(mutex);
+    full=signal(full);
+    empty=wait(empty);
+    X++;
+    printf("\nProducer producers the %d",x);
+    mutex=signal(mutex);
+}
+void consumer1()
+{
+    mutex=wait(mutex);
+    full=wait(full);
+    empty=signal(empty);
+    printf("\nConsumer consumers the %d",x);
+    X--;
+    mutex=signal(mutex);
+}
+
+   
+   
