@@ -1,0 +1,28 @@
+#define MAX 100
+void producer(void)
+{
+    int item;
+    message mesg;
+    while(TRUE)
+    {
+        item = producer_item();
+        receive(consumer,&mesg);
+        create_message(& mesg, item);
+        send(consumer, &mesg);
+    }
+}
+void consumer(void)
+{
+    int item, i;
+    message mesg;
+    for(i = 0; i < MAX; i++)
+    send(producer,&mesg);
+    while(TRUE)
+    {
+        receive(producer,&mesg);
+        item = extract_item(&mesg);
+        send(producer,&mesg);
+        consume_item(item);
+        
+    }
+}
